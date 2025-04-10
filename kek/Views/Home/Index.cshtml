@@ -1,0 +1,30 @@
+﻿@model IEnumerable<kek.Entities.Idea>
+@await Html.PartialAsync("_HeaderPartial")
+<div class="content">
+    @await Html.PartialAsync("_SidebarPartial")
+    <div class="main">
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Статус</th>
+                    <th>Комманда</th>
+                    <th>Проблема</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.IdeaName</td>
+                        <td>@item.Status</td>
+                        <td>@item.TeamId</td>
+                        <td>@item.Problem</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="filters">Фильтры</div>
+</div>
+@await Html.PartialAsync("_FooterPartial")

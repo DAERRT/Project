@@ -1,0 +1,42 @@
+﻿@model RegViewModel
+@{
+    string strTitle = "Регистрация";
+    ViewBag.Title = strTitle;
+}
+<div class="mainTAJIK">
+    <div class="main-log">
+        <form asp-area="" asp-controller="Account" asp-action="Reg" method="post" asp-route-returnUrl="@ViewBag.ReturnUrl">
+            <h1>Добро пожаловать</h1>
+            <div class="input-box">
+                <label asp-for="FirstName">Имя</label>
+                <input asp-for="FirstName"/>
+                <span asp-validation-for="FirstName"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="LastName">Фамилия</label>
+                <input asp-for="LastName"/>
+                <span asp-validation-for="LastName"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email"/>
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="Password">Пароль</label>
+                <input asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="ConfirmPassword">Подтвердите Пароль</label>
+                <input asp-for="ConfirmPassword"/>
+                <span asp-validation-for="ConfirmPassword"></span>
+            </div>
+            <button type="submit">Зарегистрироваться</button>
+            <div asp-validation-summary="All"></div>
+            <div class="register-link">
+                <p>Есть аккаунт? <a asp-controller="Account" asp-action="Login">Войти</a></p>
+            </div>
+        </form>
+    </div>
+</div>

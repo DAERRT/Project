@@ -1,0 +1,13 @@
+﻿@inject IConfiguration Configuration
+@{
+	var companyName = Configuration.GetValue("CompanyName","");
+}
+<div class="header">
+	<div>@companyName</div>
+	<div class="menu">
+        <button>Идеи</button>
+		<button>Проекты</button>
+		<a asp-controller ="Ideas" asp-action="Create">Добавить проект</a>
+	</div>
+	<div class="student">● Админ</div>
+</div>

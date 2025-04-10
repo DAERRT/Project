@@ -1,0 +1,50 @@
+﻿@model AddingIdeaViewModel
+@{
+    string strTitle = "Добавление проекта";
+    ViewBag.Title = strTitle;
+}
+<div class="mainTAJIK">
+    <div class="main-log">
+        <form asp-area="" asp-controller="Ideas" asp-action="Create" method="post" asp-route-returnUrl="@ViewBag.ReturnUrl">
+            <h1>Введите данные проекта.</h1>
+            <div class="input-box">
+                <label asp-for="IdeaName">Название</label>
+                <input asp-for="IdeaName" />
+                <span asp-validation-for="IdeaName"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="Problem">Проблема</label>
+                <input asp-for="Problem" />
+                <span asp-validation-for="Problem"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="Solution">Рекомендуемое решение</label>
+                <input asp-for="Solution" />
+                <span asp-validation-for="Solution"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="ExpectedResult">Ожтдаемый результат</label>
+                <input asp-for="ExpectedResult" />
+                <span asp-validation-for="ExpectedResult"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="NecessaryResourses">Необходимые ресурсы</label>
+                <input asp-for="NecessaryResourses" />
+                <span asp-validation-for="NecessaryResourses"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="Stack">Используемый стэк</label>
+                <input asp-for="Stack" />
+                <span asp-validation-for="Stack"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="Customer">Заказчик</label>
+                <input asp-for="Customer" />
+                <span asp-validation-for="Customer"></span>
+            </div>
+            <button type="submit">Создать проект.</button>
+            <div asp-validation-summary="All"></div>
+            <p><a asp-controller="Home" asp-action="Index">Назад</a></p>
+        </form>
+    </div>
+</div>

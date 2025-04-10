@@ -1,0 +1,22 @@
+﻿@inject IConfiguration configuration
+@{
+	var companyName = configuration.GetValue("CompanyName", "");
+}
+<!-- Footer Wrapper -->
+<div id="footer-wrapper">
+	<footer id="footer" class="container">
+		<div class="row">
+			<div class="col-12">
+				<div id="copyright">
+					<ul class="menu">
+						<li>&copy; @companyName. All rights reserved</li>
+						<li>Design: X & O</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+
+
+

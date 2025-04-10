@@ -1,0 +1,41 @@
+﻿@using kek.Models;
+@model LoginViewModel;
+
+@{
+    ViewData["Title"] = "Авторизация";
+}
+
+<div class="mainTAJIK">
+    <div class="main-log">
+        <form asp-area="" asp-controller="Account" asp-action="Login" method="post">
+            <h1>Добро пожаловать</h1>
+            <div class="input-box">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control"/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="input-box">
+                <label asp-for="Password" class="form-label">Пароль</label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="remember">
+                <label asp-for="RememberMe">Запомнить меня?</label>
+                <input asp-for="RememberMe" />
+                <span asp-validation-for="RememberMe"></span>
+                <a href="#">Забыли пароль?</a>
+            </div>
+            <button type="submit">Войти</button>
+            <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+            <div class="register-link">
+                <p>Нет аккаунта? <a asp-controller="Account" asp-action="Reg">Регистрация</a></p>
+            </div>
+        </form>
+    </div>
+</div> 
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
+    }
+}
