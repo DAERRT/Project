@@ -16,6 +16,10 @@ namespace kek.Models
         [EmailAddress]
         public string? Email { get; set; }
 
+        [Required(ErrorMessage = "Введите группу")]
+        [MaxLength(255)]
+        public string? StudyGroup { get; set; }
+
         [Required(ErrorMessage = "Введите пароль")]
         [StringLength(40, MinimumLength = 6, ErrorMessage = "Длина пароля должна быть от 6 до 40 символов.")]
         [DataType(DataType.Password)]

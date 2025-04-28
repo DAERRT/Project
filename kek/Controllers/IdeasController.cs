@@ -3,6 +3,7 @@ using kek.Entities;
 using kek.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace kek.Controllers
 {
@@ -26,40 +27,51 @@ namespace kek.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AddingIdeaViewModel model)
         {
-            var user = _userManager?.GetUserAsync(User);
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                Idea idea = new Idea()
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var user = await _userManager.FindByIdAsync(userId!);
+                if (user != null)
                 {
-                    IdeaName = model.IdeaName,
-                    Problem = model.Problem,
-                    Solution = model.Solution,
-                    ExpectedResult = model.ExpectedResult,
-                    NecessaryResourses = model.NecessaryResourses,
-                    Stack = model.Stack,
-                    Customer = model.Customer,
-                    Ininiator = "lol@gmail.com",
-                    Status = 0,
-                    TeamId = null!
-                };
+                    Idea idea = new Idea()
+                    {
+                        IdeaName = model.IdeaName,
+                        Problem = model.Problem,
+                        Solution = model.Solution,
+                        ExpectedResult = model.ExpectedResult,
+                        NecessaryResourses = model.NecessaryResourses,
+                        Stack = model.Stack,
+                        Customer = model.Customer,
+                        Ininiator = user.Email,
+                        Status = 0,
+                        TeamId = "null"
+                    };
 
-                var result = _context.Add(idea);
-                if (result != null)
-                {
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Index", "Home");
+                    var result = _context.Add(idea);
+                    if (result != null)
+                    {
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Не удалось добавить идею");
+                        return View(model);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Какая-то хуйня");
-                    return View(model);
+                    return RedirectToAction("Login", "Account");
                 }
             }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            return View();
 
+        }
+
+        public async Task<IActionResult> ViewIdea(Idea _idea)
+        {
+            ViewBag.css = "~/css/site.css";
+            return View(_idea);
         }
     }
 }

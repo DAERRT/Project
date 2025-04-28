@@ -39,7 +39,6 @@ namespace kek.Entities
         [Required]
         public int Status { get; set; } 
 
-        [Required]
         public string TeamId { get; set; } = null!;
     }
 }

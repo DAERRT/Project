@@ -1,0 +1,63 @@
+﻿@model kek.Entities.User
+@{
+    Layout = "_LayoutPersonalAccount";
+}
+
+<h1>@Model.FirstName @Model.LastName</h1>
+
+<div class="info-section">
+    <h2>Информация</h2>
+
+    <div class="info-row">
+        <span class="info-label">Почта:</span>
+        <span class="info-value">@Model.Email</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Имя:</span>
+        <span class="info-value">@Model.FirstName</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Фамилия:</span>
+        <span class="info-value">@Model.LastName</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Группа:</span>
+        <span class="info-value">ПКТ6-24-1</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Телефон:</span>
+        <span class="info-value">@Model.PhoneNumber</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Роль:</span>
+        <span class="info-value">@ViewBag.role[0]</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Дата регистрации:</span>
+        <span class="info-value">@Model.DateCreated</span>
+    </div>
+</div>
+
+<hr>
+
+<div class="info-section">
+    <h2>Компетенции</h2>
+    <p>Компетенции не выбраны</p>
+
+    <h2>Идеи</h2>
+    <p>Идей пока нет</p>
+
+    <h2>Портфолио</h2>
+</div>
+
+<hr>
+
+<div class="info-section">
+    <h2>Результаты тестирований</h2>
+</div>

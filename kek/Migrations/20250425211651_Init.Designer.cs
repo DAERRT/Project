@@ -12,8 +12,8 @@ using kek.data;
 namespace kek.Migrations
 {
     [DbContext(typeof(MyAppDbContext))]
-    [Migration("20250329112216__Init")]
-    partial class _Init
+    [Migration("20250425211651_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,14 +55,20 @@ namespace kek.Migrations
                         new
                         {
                             Id = "aeae5fd9-59f1-4f32-a2b4-226d4fed7b57",
-                            Name = "admin",
-                            NormalizedName = "ADMIN"
+                            Name = "Администратор",
+                            NormalizedName = "АДМИНИСТРАТОР"
                         },
                         new
                         {
                             Id = "14bbdb9d-df1d-4771-899f-e811a571043a",
-                            Name = "Student",
-                            NormalizedName = "STUDENT"
+                            Name = "Студент",
+                            NormalizedName = "СТУДЕНТ"
+                        },
+                        new
+                        {
+                            Id = "9061B6D9-C4B0-4CDD-9D32-8D7E7BC73ADA",
+                            Name = "Заказчик",
+                            NormalizedName = "ЗАКАЗЧИК"
                         });
                 });
 
@@ -232,22 +238,6 @@ namespace kek.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ideas");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "88BCE748-D1C9-41A6-B1BA-870C71A6B599",
-                            Customer = "olegoviz.2006@gmail.com",
-                            ExpectedResult = "testexpectedresult",
-                            IdeaName = "testidea",
-                            Ininiator = "lox",
-                            NecessaryResourses = "testnecesseryresoutses",
-                            Problem = "testproblem",
-                            Solution = "testsolution",
-                            Stack = "asd",
-                            Status = 2,
-                            TeamId = "A3741C3F-8465-43E3-B815-7254811973C1"
-                        });
                 });
 
             modelBuilder.Entity("kek.Entities.Teams", b =>
@@ -259,19 +249,27 @@ namespace kek.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TeamCreator")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TeamDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeamLead")
                         .HasColumnType("nvarchar(max)");
 
                     b.PrimitiveCollection<string>("TeamMembers")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeamMembersCount")
-                        .HasColumnType("int");
-
                     b.Property<string>("TeamName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Teams");
                 });
@@ -287,6 +285,9 @@ namespace kek.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -332,6 +333,10 @@ namespace kek.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<string>("StudyGroup")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -356,7 +361,8 @@ namespace kek.Migrations
                         {
                             Id = "261514b4-de9d-4d6f-97c2-9c93b0a9a529",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "be14fd04-234a-42c2-82e1-cc4ecf9439db",
+                            ConcurrencyStamp = "e4ea4679-9201-4dce-9521-8135921a7d27",
+                            DateCreated = new DateTime(2025, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "olegoviz.2006@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Егор",
@@ -364,10 +370,12 @@ namespace kek.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "olegoviz.2006@gmail.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAmeN58UqsnO0p6uAQXXj82mv9wZrRYnCALYm+GUy2ez1pjPung8kM27xh1KpJ+E7A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDdqtcLzllZaFo2OCq7y/6XA6yuDIwCMCJPIMb/bYiuVOOh3dG3ldNleg5xLdXsynQ==",
+                            PhoneNumber = "89091856237",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
                             Status = 2,
+                            StudyGroup = "ПКТб-24-1",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -422,6 +430,18 @@ namespace kek.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("kek.Entities.Teams", b =>
+                {
+                    b.HasOne("kek.Entities.User", null)
+                        .WithMany("Teams")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("kek.Entities.User", b =>
+                {
+                    b.Navigation("Teams");
                 });
 #pragma warning restore 612, 618
         }

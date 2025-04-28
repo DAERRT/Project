@@ -1,0 +1,37 @@
+﻿@model kek.Entities.User
+@{
+    Layout = "_LayoutPersonalAccount";
+}
+
+<div class="info-section">
+    <h2>Измените информацию</h2>
+    <form asp-area="" asp-controller="Account" asp-action="ChangeInfo" method="post">
+        <div class="info-row">
+            <span class="info-label">Почта:</span>
+            <span class="info-value"><input asp-for="Email" value=@ViewBag.userInfo["Email"] /></span>
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Имя:</span>
+            <span class="info-value"><input asp-for="FirstName" value=@ViewBag.userInfo["FirstName"] /></span>
+            <span asp-validation-for="FirstName"></span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">Фамилия:</span>
+            <span class="info-value"><input asp-for="LastName" value=@ViewBag.userInfo["LastName"] /></span>
+            <span asp-validation-for="LastName"></span>
+        </div>
+        @* <div class="info-row"> *@
+        @*     <span class="info-label">Группа:</span> *@
+        @*     <span class="info-value"><input asp-for="Email" value=@Model.Email /></span> *@
+        @*     <span asp-validation-for="Email"></span> *@
+        @* </div> *@
+        <div class="info-row">
+            <span class="info-label">Телефон:</span>
+            <span class="info-value"><input asp-for="PhoneNumber" value=@ViewBag.userInfo["PhoneNumber"] /></span>
+            <span asp-validation-for="PhoneNumber"></span>
+        </div>
+        <button type="submit">Изменить</button>
+    </form>
+    
+</div>

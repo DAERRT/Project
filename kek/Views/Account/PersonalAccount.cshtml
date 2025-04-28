@@ -1,0 +1,102 @@
+﻿@model PersonalAccountViewModel
+@{
+    Layout = "_LayoutPersonalAccount";
+    // ViewBag.userInfo = new Dictionary<string, string>
+    // {
+    //     {"Email",Model.Email},
+    //     {"FirstName", Model.FirstName},
+    //     {"LastName", Model.LastName},
+    //     {"PhoneNumber", Model.PhoneNumber}
+    // };
+}
+
+<h1>@Model.FirstName @Model.LastName</h1>
+<div class="info-section">
+    <h2>Информация</h2>
+
+    <div class="info-row">
+        <span class="info-label">Почта:</span>
+        <span class="info-value">@Model.Email</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Имя:</span>
+        <span class="info-value">@Model.FirstName</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Фамилия:</span>
+        <span class="info-value">@Model.LastName</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Группа:</span>
+        <span class="info-value">ПКТ6-24-1</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Телефон:</span>
+        <span class="info-value">@Model.PhoneNumber</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Роль:</span>
+        <span class="info-value">@ViewBag.role[0]</span>
+    </div>
+
+    <div class="info-row">
+        <span class="info-label">Дата регистрации:</span>
+        <span class="info-value">@Model.DateCreated</span>
+    </div>
+    <div>
+        <button onclick="location.href='@Url.Action("ChangeInfo", "Account")'">изменить</button>
+    </div>
+    <div>
+        <button onclick="location.href='@Url.Action("LogOut", "Account")'">Выйти</button>
+    </div>
+</div>
+
+<hr>
+
+<div class="info-section">
+    <h2>Компетенции</h2>
+    <p>Компетенции не выбраны</p>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Идеи</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var team in Model.Ideas)
+            {
+                <tr>
+                    <td>@team.IdeaName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="info-row">
+        <span class="info-label">Команды:</span>
+        
+        @foreach (var team in Model.Teams)
+        {
+            kek.Entities.Teams teams = new kek.Entities.Teams() { Id = team.Id };
+            <span class="info-value" onclick="location.href='@Url.Action("TeamView", "Teams", teams)'">
+                @team.TeamName
+            </span>
+        }
+        
+        
+    </div>
+
+    <h2>Портфолио</h2>
+</div>
+
+<hr>
+
+<div class="info-section">
+    <h2>Результаты тестирований</h2>
+</div>

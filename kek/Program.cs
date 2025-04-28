@@ -39,7 +39,8 @@ namespace kek
             {
                 options.Cookie.Name = "MyWebApplicationAuth";
                 options.Cookie.HttpOnly = true;
-                options.LoginPath = "/account/login";
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/LogOut";
                 options.AccessDeniedPath = "/account/accessdenied";
                 options.SlidingExpiration = true;
             });

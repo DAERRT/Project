@@ -1,0 +1,93 @@
+﻿@model TeamEditViewModel
+@{
+    Layout = "_LayoutViewIdea";
+}
+<div class="main">
+    <div class="main-box">
+        <div class="page-header">
+            <h1 class="page-title">Информация о команде</h1>
+            <button class="back-button" onclick="window.history.back()">
+                Назад
+            </button>
+        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="tittle">Название комманды</td>
+                    <td>@Model.TeamName</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Описание Комманды</td>
+                    <td>@Model.TeamDescription</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Тим лидер</td>
+                    <td>@Html.ActionLink(Model.TeamLead, actionName: "ViewUserAccountData", controllerName: "Account", new { userEmail = Model.TeamLead })</td>
+                </tr>
+                <tr>
+                    <td>Выбрать Тим-лидера:</td>
+                    <td>
+                        <form method="post" asp-action="AddTeamLead" asp-controller="Teams">
+                            <input type="hidden" name="teamId" value="@Model.Id" />
+
+                            <div class="form-group">
+                                <select asp-for="TeamLead">
+                                    <option value="">Выберите тим-лида</option>
+                                    @foreach (var i in Model.TeamMembers)
+                                    {
+                                        <option value=@i>@i</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Добавить</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tittle">Участники</td>
+                    @foreach (var member in Model.TeamMembers)
+                    {
+                        <td>@Html.ActionLink(member, actionName: "ViewUserAccountData", controllerName: "Account", new { userEmail = member })</td>
+                    }
+                </tr>
+                <tr>
+                    <td>Добавить участников в команду</td>
+                    <td>
+                        <form method="post" asp-action="TeamEdit" asp-controller="Teams">
+                            <input type="hidden" name="teamId" value="@Model.Id" />
+
+                            <div class="form-group">
+                                @foreach (var user in Model.Users)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="checkbox"
+                                               name="userIds"
+                                               value="@user.Id"
+                                               id="user_@user.Id">
+
+                                        <label class="form-check-label" for="user_@user.Id">
+                                            @user.Email
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Добавить</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tittle">Кол-во участников </td>
+                    <td>@Model.TeamMembers.Count</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Создатель:</td>
+                    <td>@Html.ActionLink(Model.TeamCreator, actionName: "ViewUserAccountData", controllerName: "Account", new { userEmail = Model.TeamCreator })</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

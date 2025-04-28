@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace MyWebApplication.Views.Shared
+namespace kek.Views.Teams
 {
-    public class _CssPartialModel : PageModel
+    public class teamsModel : PageModel
     {
         public void OnGet()
         {

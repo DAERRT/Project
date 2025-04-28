@@ -1,13 +1,16 @@
 ﻿@inject IConfiguration Configuration
 @{
 	var companyName = Configuration.GetValue("CompanyName","");
+	var role = ViewBag.role[0];
 }
 <div class="header">
 	<div>@companyName</div>
 	<div class="menu">
-        <button>Идеи</button>
-		<button>Проекты</button>
-		<a asp-controller ="Ideas" asp-action="Create">Добавить проект</a>
+		<button onclick="location.href='@Url.Action("Teams", "Teams")'">Команды</button>
+		<button onclick="location.href='@Url.Action("Index", "Home")'">Идеи</button>
+		<button onclick="location.href='@Url.Action("Index", "Home")'">Проекты</button>
 	</div>
-	<div class="student">● Админ</div>
+	<div class="student">
+		<label>@role</label>
+	</div>
 </div>

@@ -13,5 +13,14 @@ namespace kek.Entities
 
         [Required]
         public int? Status {  get; set; }
+
+        [Required]
+        public string? StudyGroup { get; set; }
+
+        [Required]
+        public DateTime? DateCreated { get; set; } = DateTime.UtcNow.Date;
+
+
+        public ICollection<Teams> Teams { get; set; }
     }
 }

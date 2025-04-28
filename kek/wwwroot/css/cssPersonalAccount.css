@@ -1,0 +1,91 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #954ECA;
+}
+
+h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+h2 {
+    color: #2980b9;
+    margin-top: 30px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+h3 {
+    color: #16a085;
+    margin-top: 20px;
+}
+
+.info-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.info-row {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: bold;
+    min-width: 150px;
+    color: #7f8c8d;
+}
+
+.info-value {
+    flex-grow: 1;
+}
+
+.edit-link {
+    color: #95a5a6;
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
+    .edit-link:hover {
+        color: #3498db;
+    }
+
+.portfolio-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+    .portfolio-list li {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    .portfolio-list input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+.test-result {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-left: 4px solid #3498db;
+    margin-top: 15px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #eee;
+    margin: 30px 0;
+}

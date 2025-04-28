@@ -1,0 +1,15 @@
+﻿@model TeamCreationViewModel
+<div class="container">
+    <h2>Создание команды</h2>
+    <form asp-controller="Teams" asp-action="TeamCreate" method="post">
+        <div class="input-box">
+            <input asp-for="TeamName" class="form-control" placeholder="Название команды" />
+            <span asp-validation-for="TeamName" class="text-danger"></span>
+        </div>
+        <div class="input-box">
+            <input asp-for="TeamDescription" class="form-control" placeholder="Описание команды" />
+            <span asp-validation-for="TeamDescription" class="text-danger"></span>
+        </div>
+        <button type="submit">Добавить</button>
+    </form>
+</div>

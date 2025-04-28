@@ -1,0 +1,179 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #954ECA;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.main-box {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eaeef2;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 0;
+}
+
+.back-button {
+    background-color: #4a6fa5;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .back-button:hover {
+        background-color: #3a5a80;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .back-button:active {
+        transform: translateY(0);
+    }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 1px solid #eaeef2;
+    transition: background-color 0.2s ease;
+}
+
+    tr:last-child {
+        border-bottom: none;
+    }
+
+    tr:hover {
+        background-color: #f8fafc;
+    }
+
+td {
+    padding: 16px 20px;
+    vertical-align: top;
+}
+
+.tittle {
+    width: 200px;
+    font-weight: 600;
+    color: #4a5568;
+    background-color: #f7fafc;
+    border-right: 1px solid #e2e8f0;
+}
+
+/* Стили для статусов */
+.status-new {
+    color: #4299e1;
+    font-weight: 500;
+}
+
+.status-in-progress {
+    color: #ed8936;
+    font-weight: 500;
+}
+
+.status-completed {
+    color: #48bb78;
+    font-weight: 500;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .main-box {
+        padding: 20px;
+    }
+
+    .page-title {
+        font-size: 20px;
+    }
+
+    td {
+        padding: 12px 15px;
+    }
+
+    .tittle {
+        width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main {
+        padding: 10px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .back-button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    td {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border-bottom: none;
+    }
+
+    .tittle {
+        width: 100%;
+        background-color: transparent;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 8px;
+        margin-bottom: 5px;
+    }
+
+    tr {
+        display: block;
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+        tr:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+}

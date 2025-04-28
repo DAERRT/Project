@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace kek.Migrations
 {
     /// <inheritdoc />
-    public partial class _Init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,6 +35,8 @@ namespace kek.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    StudyGroup = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -74,22 +76,6 @@ namespace kek.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ideas", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Teams",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TeamName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TeamDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TeamMembers = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TeamMembersCount = table.Column<int>(type: "int", nullable: false),
-                    IdeaId = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teams", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -198,24 +184,43 @@ namespace kek.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Teams",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TeamName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TeamDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TeamMembers = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TeamLead = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TeamCreator = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdeaId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teams_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "14bbdb9d-df1d-4771-899f-e811a571043a", null, "Student", "STUDENT" },
-                    { "aeae5fd9-59f1-4f32-a2b4-226d4fed7b57", null, "admin", "ADMIN" }
+                    { "14bbdb9d-df1d-4771-899f-e811a571043a", null, "Студент", "СТУДЕНТ" },
+                    { "9061B6D9-C4B0-4CDD-9D32-8D7E7BC73ADA", null, "Заказчик", "ЗАКАЗЧИК" },
+                    { "aeae5fd9-59f1-4f32-a2b4-226d4fed7b57", null, "Администратор", "АДМИНИСТРАТОР" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "261514b4-de9d-4d6f-97c2-9c93b0a9a529", 0, "be14fd04-234a-42c2-82e1-cc4ecf9439db", "olegoviz.2006@gmail.com", true, "Егор", "Рубанов", false, null, "olegoviz.2006@gmail.com", "ADMIN", "AQAAAAIAAYagAAAAEAmeN58UqsnO0p6uAQXXj82mv9wZrRYnCALYm+GUy2ez1pjPung8kM27xh1KpJ+E7A==", null, true, "", 2, false, "admin" });
-
-            migrationBuilder.InsertData(
-                table: "Ideas",
-                columns: new[] { "Id", "Customer", "ExpectedResult", "IdeaName", "Ininiator", "NecessaryResourses", "Problem", "Solution", "Stack", "Status", "TeamId" },
-                values: new object[] { "88BCE748-D1C9-41A6-B1BA-870C71A6B599", "olegoviz.2006@gmail.com", "testexpectedresult", "testidea", "lox", "testnecesseryresoutses", "testproblem", "testsolution", "asd", 2, "A3741C3F-8465-43E3-B815-7254811973C1" });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateCreated", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Status", "StudyGroup", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "261514b4-de9d-4d6f-97c2-9c93b0a9a529", 0, "e4ea4679-9201-4dce-9521-8135921a7d27", new DateTime(2025, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc), "olegoviz.2006@gmail.com", true, "Егор", "Рубанов", false, null, "olegoviz.2006@gmail.com", "ADMIN", "AQAAAAIAAYagAAAAEDdqtcLzllZaFo2OCq7y/6XA6yuDIwCMCJPIMb/bYiuVOOh3dG3ldNleg5xLdXsynQ==", "89091856237", true, "", 2, "ПКТб-24-1", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -260,6 +265,11 @@ namespace kek.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teams_UserId",
+                table: "Teams",
+                column: "UserId");
         }
 
         /// <inheritdoc />

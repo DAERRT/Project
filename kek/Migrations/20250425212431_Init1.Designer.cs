@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using kek.data;
 
@@ -11,9 +12,11 @@ using kek.data;
 namespace kek.Migrations
 {
     [DbContext(typeof(MyAppDbContext))]
-    partial class MyAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250425212431_Init1")]
+    partial class Init1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -363,7 +366,7 @@ namespace kek.Migrations
                         {
                             Id = "261514b4-de9d-4d6f-97c2-9c93b0a9a529",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dc52d48e-c6ff-4ab8-9c4c-c8f027488d43",
+                            ConcurrencyStamp = "61f9a0eb-c75f-48e5-bcb9-6596e398d1a4",
                             DateCreated = new DateTime(2025, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "olegoviz.2006@gmail.com",
                             EmailConfirmed = true,
@@ -372,7 +375,7 @@ namespace kek.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "olegoviz.2006@gmail.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO+4GBBDp1IT6Lcbr5zt/Xx+fRv3MYVqmkma/vzI/KGtPmzdsny9O2tmGOyQJcT2IA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAylDRpCs1XcLmXb8VtLsSK2Zd8YpMAsaXMOeT9je4FJmqsL7v7nV+5b2Vk2EleKXg==",
                             PhoneNumber = "89091856237",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
@@ -385,7 +388,7 @@ namespace kek.Migrations
                         {
                             Id = "4D929078-D64B-483B-9F91-B5E943981BB2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "49185084-370b-4add-8024-9df47b9d35ea",
+                            ConcurrencyStamp = "6581df53-807b-416a-a1e4-f41b7363d4e2",
                             DateCreated = new DateTime(2025, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "customer@gmail.com",
                             EmailConfirmed = true,
@@ -393,15 +396,15 @@ namespace kek.Migrations
                             LastName = "заказчик",
                             LockoutEnabled = false,
                             NormalizedEmail = "CUSTOMER@GMAIL.COM",
-                            NormalizedUserName = "CUSTOMER@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAYiX+iDZOvtk2zWG1hswwhlth4aFjRiNFFBPZbNoffywV4LBE0iEcnRL8IyWIuVRw==",
+                            NormalizedUserName = "ЗАКАЗЧИК",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI7pnJAleajrDtUB5fZD73xiwybMu+oC2s2Iin8aqMRgePITutrGSJhX08Y3RCuTYQ==",
                             PhoneNumber = "89999999999",
                             PhoneNumberConfirmed = true,
                             SecurityStamp = "",
                             Status = 2,
                             StudyGroup = "заказчик",
                             TwoFactorEnabled = false,
-                            UserName = "customer@gmail.com"
+                            UserName = "заказчик"
                         });
                 });
 

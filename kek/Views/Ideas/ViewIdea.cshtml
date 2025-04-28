@@ -1,0 +1,86 @@
+﻿@model kek.Entities.Idea
+@{
+    Layout = "_LayoutViewIdea";
+    ViewBag.viewUser = Model.Ininiator;
+}
+<div class="main">
+    <div class="main-box">
+        <div class="page-header">
+            <h1 class="page-title">Информация о проекте</h1>
+            <button class="back-button" onclick="window.history.back()">
+                Назад
+            </button>
+        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="tittle">Название идеи</td>
+                    <td>@Model.IdeaName</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Проблема</td>
+                    <td>@Model.Problem</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Решение</td>
+                    <td>@Model.Solution</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Ожидаемый результат</td>
+                    <td>@Model.ExpectedResult</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Необходимые ресурсы</td>
+                    <td>@Model.NecessaryResourses</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Стэк</td>
+                    <td>@Model.Stack</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Заказчик</td>
+                    <td>@Model.Customer</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Инициатор</td>
+                    <td>@Html.ActionLink(Model.Ininiator, actionName:"ViewUserAccountData",controllerName:"Account", new { userEmail = Model.Ininiator })</td>
+                </tr>
+                <tr>
+                    <td class="tittle">Статус</td>
+                    <td>
+                        @{
+                            if (Model.Status == 0)
+                            {
+                                <label>Новая</label>
+                            }
+                            else if (Model.Status == 1)
+                            {
+                                <label>На редактировании</label>
+                            }
+                            else if (Model.Status == 2)
+                            {
+                                <label>На согласовании</label>
+                            }
+                            else if (Model.Status == 3)
+                            {
+                                <label>На утверждении</label>
+                            }
+                            else if (Model.Status == 4)
+                            {
+                                <label>Утверждена</label>
+                            }
+                            else if (Model.Status == 5)
+                            {
+                                <label>Опубликована</label>
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td class="tittle">Название команды</td>
+                    <td>@Model.TeamId</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

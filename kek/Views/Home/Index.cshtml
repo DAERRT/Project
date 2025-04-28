@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<kek.Entities.Idea>
+@{
+    Layout = "_Layout";
+}
 @await Html.PartialAsync("_HeaderPartial")
 <div class="content">
     @await Html.PartialAsync("_SidebarPartial")
@@ -8,22 +11,58 @@
                 <tr>
                     <th>Название</th>
                     <th>Статус</th>
-                    <th>Комманда</th>
-                    <th>Проблема</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>@item.IdeaName</td>
-                        <td>@item.Status</td>
-                        <td>@item.TeamId</td>
-                        <td>@item.Problem</td>
+                        <td onclick="location.href='@Url.Action("ViewIdea", "Ideas", item)'">@item.IdeaName</td>
+                        <td>@{
+                                if (item.Status == 0)
+                                {
+                                    <label>Новая</label>
+                                }
+                                else if (item.Status == 1)
+                                {
+                                    <label>На редактировании</label>
+                                }
+                                else if (item.Status == 2)
+                                {
+                                    <label>На согласовании</label>
+                                }
+                                else if (item.Status == 3)
+                                {
+                                    <label>На утверждении</label>
+                                }
+                                else if (item.Status == 4)
+                                {
+                                    <label>Утверждена</label>
+                                }
+                                else if (item.Status == 5)
+                                {
+                                    <label>Опубликована</label>
+                                }
+                            }</td>
                     </tr>
                 }
             </tbody>
         </table>
+        @{var a = false;}
+        @foreach (var i in ViewBag.role)
+        {
+            if (i == "Студент")
+            {
+                a = true;
+                break;
+            }
+        }
+        @if (a != true)
+        {
+            <div class="btn_add-container">
+                <button class="add_btn" onclick="location.href='@Url.Action("Create", "Ideas")'">Предложить идею</button>
+            </div>
+        }
     </div>
     <div class="filters">Фильтры</div>
 </div>

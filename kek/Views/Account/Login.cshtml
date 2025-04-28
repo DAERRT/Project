@@ -9,21 +9,19 @@
     <div class="main-log">
         <form asp-area="" asp-controller="Account" asp-action="Login" method="post">
             <h1>Добро пожаловать</h1>
-            <div class="input-box">
-                <label asp-for="Email" class="form-label">Email</label>
-                <input asp-for="Email" class="form-control"/>
+            <div class="input-box-login">
+                <input asp-for="Email" class="form-control" placeholder="Логин"/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="input-box">
-                <label asp-for="Password" class="form-label">Пароль</label>
-                <input asp-for="Password" class="form-control" />
+            <div class="input-box-login">
+                <input asp-for="Password" class="form-control" placeholder="Пароль" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="remember">
                 <label asp-for="RememberMe">Запомнить меня?</label>
                 <input asp-for="RememberMe" />
                 <span asp-validation-for="RememberMe"></span>
-                <a href="#">Забыли пароль?</a>
+                <a asp-controller="Account" asp-action="ChangePassword">Забыли пароль?</a>
             </div>
             <button type="submit">Войти</button>
             <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
@@ -39,3 +37,62 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
     }
 }
+
+
+
+
+
+
+
+
+
+
+@* @model TeamCreationViewModel *@
+@* <div class="container"> *@
+@*     <h2>Создание команды</h2> *@
+@*     @using (Html.BeginForm("TeamCreate", "Teams", FormMethod.Post)) *@
+@*     { *@
+@*         <div class="form-group"> *@
+@*             <label asp-for="TeamName">Название команды</label> *@
+@*             <input asp-for="TeamName" class="text-danger" /> *@
+@*         </div> *@
+
+@*         <div class="form-group"> *@
+@*             <label asp-for="TeamDescription">Описание команды</label> *@
+@*             <textarea id="description" name="description" class="form-control" rows="3" required asp-for="TeamDescription"></textarea> *@
+@*         </div> *@
+
+@*         <div class="form-group"> *@
+@*             <label asp-for="TeamMembers">Добавить участника</label> *@
+@*             <select id="studentSelect" name="selectedStudent" class="form-control"> *@
+@*                 <option value="">Выберите участника</option> *@
+@*                 @foreach (var student in Model.Students) *@
+@*                 { *@
+@*                     <option value="@student.Id">@student.Email</option> *@
+@*                 } *@
+@*             </select> *@
+@*         </div> *@
+
+@*         <div class="form-group"> *@
+@*             <button type="submit" class="btn btn-primary">Добавить участника</button> *@
+@*         </div> *@
+
+@*         <div> *@
+@*             <h5>Участники:</h5> *@
+@*             <ul> *@
+@*                 @foreach (var participant in Model.Participants) *@
+@*                 { *@
+@*                     <li> *@
+@*                         @participant.Email *@
+@*                         <form method="post" action="@Url.Action("RemoveParticipant", "Teams")" style="display:inline;"> *@
+@*                             <input type="hidden" name="participantId" value="@participant.Id" /> *@
+@*                             <button type="submit" class="btn btn-link">Удалить</button> *@
+@*                         </form> *@
+@*                     </li> *@
+@*                 } *@
+@*             </ul> *@
+@*         </div> *@
+
+@*         <button type="submit" class="btn btn-success">Создать команду</button> *@
+@*     } *@
+@* </div> *@

@@ -90,7 +90,7 @@ th, td {
 }
 
 th {
-    background-color: #6a5acd; /* цвет заголовков */
+    background-color: #a56ad7; /* цвет заголовков */
     color: white; /* цвет текста в заголовках */
     border-bottom: 3px solid #fff;
 }
@@ -188,9 +188,10 @@ td {
     .input-box input {
         width: 85%;
         height: 45px;
-        padding-left: 40px;
         border: 2px solid #954ECA;
         border-radius: 8px;
+        padding-left: 10px;
+        padding-right: 10px;
         outline: none;
         font-size: 16px;
         transition: 0.3s;
@@ -200,20 +201,38 @@ td {
         .input-box input:focus {
             border-color: #6D2D91;
         }
-
-    .input-box i {
-        position: absolute;
-        left: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 20px;
-        color: #954ECA;
+    .input-box label {
+        display: block; /* делает label блочным элементом */
+        margin-left: 17px; /* убирает отступы по умолчанию */
+        padding: 0; /* убирает внутренние отступы */
+        text-align: left; /* выравнивание текста по левому краю */
     }
+
+.input-box-login {
+    position: relative;
+    margin: 15px 0;
+}
+
+    .input-box-login input {
+        width: 100%;
+        height: 45px;
+        border: 2px solid #954ECA;
+        border-radius: 8px;
+        padding-left: 10px;
+        padding-right: 10px;
+        outline: none;
+        font-size: 16px;
+        transition: 0.3s;
+        background: #F3E2FF;
+    }
+
+        .input-box-login input:focus {
+            border-color: #6D2D91;
+        }
 
 /* «апомнить мен€ и ссылка */
 .remember {
     display: flex;
-    justify-content: space-between;
     font-size: 14px;
     margin: 15px 0;
 }
@@ -221,6 +240,7 @@ td {
     .remember a {
         text-decoration: none;
         color: #954ECA;
+        margin-left: 125px;
         font-weight: bold;
     }
 
@@ -260,3 +280,17 @@ button {
         .register-link a:hover {
             text-decoration: underline;
         }
+
+.tittle{
+    text-decoration: wavy;
+}
+
+.btn_add-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.add_btn{
+    width:200px;
+}
