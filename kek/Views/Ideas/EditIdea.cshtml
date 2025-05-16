@@ -1,0 +1,84 @@
+﻿@model EditIdeaViewModel;
+@{
+    Layout = "_LayoutViewIdea";
+}
+<div class="main">
+    <div class="main-box">
+        <div class="page-header">
+            <h1 class="page-title">Информация о проекте</h1>
+            <button class="back-button" onclick="window.history.back()">
+                Назад
+            </button>
+        </div>
+        <form asp-action="EditIdea" asp-controller="Ideas" asp-area="" method="post">
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="tittle">Название идеи</td>
+                        <td><input asp-for="IdeaName" class="form-control" placeholder="Название идеи" value=@Model.IdeaName required /></td>
+                    </tr>
+                    <tr>
+                        <td class="tittle">Проблема</td>
+                        <td><input asp-for="Problem" class="form-control" placeholder="Проблема" value=@Model.Problem required /></td>
+                    </tr>
+                    <tr>
+                        <td class="tittle">Решение</td>
+                        <td><input asp-for="Solution" class="form-control" placeholder="Предлагаемое решение" value=@Model.Solution required /></td>
+                    </tr>
+                    <tr>
+                        <td class="tittle">Ожидаемый результат</td>
+                        <td><input asp-for="ExpectedResult" class="form-control" placeholder="Ожидаемый результат" value=@Model.ExpectedResult required /></td>
+                    </tr>
+                    <tr>
+                        <td class="tittle">Необходимые ресурсы</td>
+                        <td><input asp-for="NecessaryResourses" class="form-control" placeholder="Необходимые ресурсы" value=@Model.NecessaryResourses required /></td>
+                    </tr>
+                    <tr>
+                        <td class="tittle">Стэк</td>
+                        <td><input asp-for="Stack" class="form-control" placeholder="Стэк" value=@Model.Stack required /></td>
+                    </tr>
+                    <tr>
+                        <td class="tittle">Заказчик</td>
+                        <td><input asp-for="Customer" class="form-control" placeholder="Заказчик" value=@Model.Customer required /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+            <button type="submit">Сохранить изменения</button>
+        </form>
+        @* <form asp-action="EditIdea" asp-controller="Ideas" asp-area="" method="post"> *@
+        @*     <input type="hidden" asp-for="Id" value="@Model.Id"/> *@
+        @*     <div class="input-box-login"> *@
+        @*         <input asp-for="IdeaName" class="form-control" placeholder="Название идеи" value=@Model.IdeaName required/> *@
+        @*         <span asp-validation-for="IdeaName" class="text-danger"></span> *@
+        @*     </div> *@
+        @*     <div class="input-box-login"> *@
+        @*         <input asp-for="Problem" class="form-control" placeholder="Проблема" value=@Model.Problem required /> *@
+        @*         <span asp-validation-for="Problem" class="text-danger"></span> *@
+        @*     </div> *@
+        @*     <div class="input-box-login"> *@
+        @*         <input asp-for="Solution" class="form-control" placeholder="Предлагаемое решение" value=@Model.Solution required /> *@
+        @*         <span asp-validation-for="Solution" class="text-danger"></span> *@
+        @*     </div> *@
+        @*     <div class="input-box-login"> *@
+        @*         <input asp-for="ExpectedResult" class="form-control" placeholder="Ожидаемый результат" value=@Model.ExpectedResult required /> *@
+        @*         <span asp-validation-for="ExpectedResult" class="text-danger"></span> *@
+        @*     </div> *@
+        @*     <div class="input-box-login"> *@
+        @*         <input asp-for="NecessaryResourses" class="form-control" placeholder="Необходимые ресурсы" value=@Model.NecessaryResourses required /> *@
+        @*         <span asp-validation-for="NecessaryResourses" class="text-danger"></span> *@
+        @*     </div> *@
+        @*     <div class="input-box-login"> *@
+        @*         <input asp-for="Stack" class="form-control" placeholder="Стэк" value=@Model.Stack required /> *@
+        @*         <span asp-validation-for="Stack" class="text-danger"></span> *@
+        @*     </div> *@
+        @*     <div class="input-box-login"> *@
+        @*         <input asp-for="Customer" class="form-control" placeholder="Заказчик" value=@Model.Customer required /> *@
+        @*         <span asp-validation-for="Customer" class="text-danger"></span> *@
+        @*     </div> *@
+        @*     <div asp-validation-summary="ModelOnly" class="text-danger"> </div> *@
+        @*     <button type="submit">Сохранить изменения</button> *@
+        @* </form> *@
+    </div>
+</div>

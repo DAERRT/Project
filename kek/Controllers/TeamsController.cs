@@ -66,7 +66,8 @@ namespace kek.Controllers
             Teams team = await _context.Teams.FindAsync(Team.Id);
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _usermanager.FindByIdAsync(userId!);
-            if (user.Email == team.TeamCreator)
+            var userRole = await _usermanager.GetRolesAsync(user);
+            if (user.Email == team.TeamCreator || userRole[0] == "Администратор")
             {
                 return RedirectToAction("TeamEdit", "Teams", new { id = Team.Id });
             }
@@ -139,6 +140,21 @@ namespace kek.Controllers
             }
                 _context.SaveChangesAsync();
             return RedirectToAction("TeamEdit", new {id = teamid});
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string teamId)
+        {
+            var team = await _context.Teams.FindAsync(teamId);
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            _context.Teams.Remove(team);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Teams");
         }
 
     }

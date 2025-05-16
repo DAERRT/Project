@@ -9,6 +9,10 @@
 		<button onclick="location.href='@Url.Action("Teams", "Teams")'">Команды</button>
 		<button onclick="location.href='@Url.Action("Index", "Home")'">Идеи</button>
 		<button onclick="location.href='@Url.Action("Index", "Home")'">Проекты</button>
+		@if (role == "Администратор")
+		{
+			<button onclick="location.href='@Url.Action("Users", "Home")'">Пользователи</button>
+		}
 	</div>
 	<div class="student">
 		<label>@role</label>

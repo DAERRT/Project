@@ -26,4 +26,22 @@ public class HomeController : Controller
         var _ideas = await _context.Ideas.ToListAsync();
         return View(_ideas);
     }
+
+    [Authorize(Roles = "Администратор")]
+    public async Task<IActionResult> Admin()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        ViewBag.role = await _userManager.GetRolesAsync(user);
+        var _ideas = await _context.Ideas.ToListAsync();
+        return View(_ideas);
+    }
+
+    [Authorize(Roles = "Администратор")]
+    public async Task<IActionResult> Users()
+    {
+        var users = await _userManager.Users.ToListAsync();
+        var user = await _userManager.GetUserAsync(User);
+        ViewBag.role = await _userManager.GetRolesAsync(user);
+        return View(users);
+    }
 }

@@ -1,4 +1,4 @@
-﻿@model ChangeInfoViewModel
+﻿@model ChangeInfoAdminViewModel
 
 @{
     ViewData["Title"] = "Редактирование профиля";
@@ -10,7 +10,7 @@
             <h2>Редактирование профиля</h2>
         </div>
         <div class="card-body">
-            <form asp-action="ChangeInfo" method="post">
+            <form asp-action="ChangeInfoAdmin" method="post">
                 <input type="hidden" asp-for="Id" />
 
                 <div class="form-group">
@@ -42,9 +42,22 @@
                     <input asp-for="PhoneNumber" class="form-control" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
+
+                <div class="form-group">
+                    <label asp-for="SelectedRoleId" class="control-label">Роль</label>
+                    <select asp-for="SelectedRoleId" class="form-control">
+                        <option value="">-- Выберите роль --</option>
+                        @foreach (var role in Model.AvailableRoles)
+                        {
+                            <option value="@role.RoleId">@role.RoleName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="SelectedRoleId" class="text-danger"></span>
+                </div>
+
                 <div class="form-group">
                     <input type="submit" value="Сохранить" class="btn btn-primary" />
-                    <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Отмена</a>
+                    <a asp-action="Users" asp-controller="Home" class="btn btn-secondary">Отмена</a>
                 </div>
             </form>
         </div>

@@ -43,9 +43,14 @@ namespace kek.Controllers
             if (ModelState.IsValid)
             {
                 var result = await signInManager.PasswordSignInAsync(model.Email!, model.Password!, model.RememberMe, false);
-
+                User user = await userManager.FindByEmailAsync(model.Email);
+                var userrole = await userManager.GetRolesAsync(user);
                 if (result.Succeeded)
                 {
+                    if (userrole[0] == "Администратор")
+                    {
+                        return RedirectToAction("Admin", "Home");
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -167,16 +172,34 @@ namespace kek.Controllers
             var Ideas = new List<Idea>();
             var userteamids = Teams.Select(team => team.Id).ToList();
             Ideas = _ideas.Where(idea => userteamids.Contains(idea.TeamId)).ToList();
-            var model = new PersonalAccountViewModel
+            PersonalAccountViewModel model;
+            if (user.PhoneNumber != null && user.PhoneNumber != string.Empty)
             {
-                Id = user.Id,
-                Email = user.Email,
-                FirstName = user.FirstName, 
-                LastName = user.LastName,
-                UserName = user.UserName,
-                Teams = Teams,
-                Ideas = Ideas,
-            };
+                model = new PersonalAccountViewModel
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    UserName = user.UserName,
+                    PhoneNumber = user.PhoneNumber,
+                    Teams = Teams,
+                    Ideas = Ideas,
+                };
+            }
+            else
+            {
+                model = new PersonalAccountViewModel
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    UserName = user.UserName,
+                    Teams = Teams,
+                    Ideas = Ideas,
+                };
+            }
             return View(model);
         }
 
@@ -200,20 +223,150 @@ namespace kek.Controllers
             return View(model);
         }
 
-        //public IActionResult ChangeInfo()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public async Task<IActionResult> ChangeInfo(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        //[HttpPost]
-        //public async Task<IActionResult> ChangeInfo(User model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        userManager.Change
-        //    }
-        //    return View();
-        //}
+            var model = new ChangeInfoViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                StudyGroup = user.StudyGroup,
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeInfo(ChangeInfoViewModel model)
+        {
+
+            var user = await userManager.FindByIdAsync(model.Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Обновляем основные данные пользователя
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
+            var updateResult = await userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
+            {
+                foreach (var error in updateResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(model);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        public async Task<IActionResult> ChangeInfoAdmin(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userRoles = await userManager.GetRolesAsync(user);
+            var currentRole = userRoles.FirstOrDefault();
+
+            var model = new ChangeInfoAdminViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                StudyGroup = user.StudyGroup,
+                AvailableRoles = roleManager.Roles
+                .Select(r => new RoleViewModel
+                {
+                    RoleId = r.Id,
+                    RoleName = r.Name
+                }).ToList(),
+                SelectedRoleId = currentRole != null ?
+                (await roleManager.FindByNameAsync(currentRole))?.Id : null
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeInfoAdmin(ChangeInfoAdminViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Перезагружаем доступные роли при ошибке валидации
+                model.AvailableRoles = (await roleManager.Roles.ToListAsync())
+                    .Select(r => new RoleViewModel
+                    {
+                        RoleId = r.Id,
+                        RoleName = r.Name
+                    }).ToList();
+                return View(model);
+            }
+
+            if (string.IsNullOrEmpty(model.SelectedRoleId))
+            {
+                ModelState.AddModelError("SelectedRoleId", "Пожалуйста, выберите роль");
+                model.AvailableRoles = (await roleManager.Roles.ToListAsync())
+                    .Select(r => new RoleViewModel
+                    {
+                        RoleId = r.Id,
+                        RoleName = r.Name
+                    }).ToList();
+                return View(model);
+            }
+
+            var user = await userManager.FindByIdAsync(model.Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Обновляем основные данные пользователя
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+
+            var updateResult = await userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
+            {
+                foreach (var error in updateResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(model);
+            }
+
+            var selectedRole = await roleManager.FindByIdAsync(model.SelectedRoleId);
+            if (selectedRole != null)
+            {
+                // Удаляем все текущие роли
+                var currentRoles = await userManager.GetRolesAsync(user);
+                await userManager.RemoveFromRolesAsync(user, currentRoles);
+
+                // Добавляем новую роль
+                await userManager.AddToRoleAsync(user, selectedRole.Name);
+            }
+
+            return RedirectToAction("Users", "Home");
+        }
 
         [HttpGet]
         public async Task<IActionResult> Search(string query)
@@ -242,6 +395,63 @@ namespace kek.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PersonalAccountForAdmin(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var role = await userManager.GetRolesAsync(user);
+            ViewBag.role = role;
+            var _teams = await _context.Teams.ToListAsync();
+            var Teams = new List<Teams>();
+            Teams = _teams.Where(team => team.TeamMembers.Contains(user.Email)).ToList();
+            var _ideas = await _context.Ideas.ToListAsync();
+            var Ideas = new List<Idea>();
+            var userteamids = Teams.Select(team => team.Id).ToList();
+            Ideas = _ideas.Where(idea => userteamids.Contains(idea.TeamId)).ToList();
+            var model = new PersonalAccountViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                Teams = Teams,
+                Ideas = Ideas,
+            };
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles ="Администратор")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound($"User with ID '{id}' not found.");
+            }
+
+            // Дополнительная проверка (например, нельзя удалить себя)
+            var currentUser = await userManager.GetUserAsync(User);
+            if (user.Id == currentUser.Id)
+            {
+                return BadRequest("You cannot delete your own account this way.");
+            }
+
+            var result = await userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Error deleting user: {string.Join(", ", result.Errors)}");
+            }
+            return RedirectToAction("Users", "Home");
         }
     }
 }

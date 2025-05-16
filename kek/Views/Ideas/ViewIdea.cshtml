@@ -7,6 +7,17 @@
     <div class="main-box">
         <div class="page-header">
             <h1 class="page-title">Информация о проекте</h1>
+            @if (ViewBag.userEmail == Model.Ininiator || ViewBag.role == "Администратор")
+            {
+                <form asp-action="Myau" asp-controller="Ideas" asp-area="" method="post">
+                    <input type="hidden" name="ideaId" value="@Model.Id" />
+                    <button type="submit">Изменить</button>
+                </form>
+                <form asp-action="Delete" asp-controller="Ideas" asp-area="" method="post">
+                    <input type="hidden" name="ideaId" value="@Model.Id" />
+                    <button type="submit">Удалить</button>
+                </form>
+            }
             <button class="back-button" onclick="window.history.back()">
                 Назад
             </button>

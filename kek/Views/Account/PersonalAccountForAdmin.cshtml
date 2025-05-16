@@ -49,10 +49,13 @@
         <span class="info-value">@Model.DateCreated</span>
     </div>
     <div>
-        <button onclick="location.href='@Url.Action("ChangeInfo", "Account", new{id = Model.Id})'">изменить</button>
+        <button onclick="location.href='@Url.Action("ChangeInfoAdmin", "Account", new{ id = Model.Id})'">Изменить</button>
     </div>
     <div>
-        <button onclick="location.href='@Url.Action("LogOut", "Account")'">Выйти</button>
+        <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">Удалить</button>
+        </form>
     </div>
 </div>
 
@@ -80,7 +83,7 @@
 
     <div class="info-row">
         <span class="info-label">Команды:</span>
-        
+
         @foreach (var team in Model.Teams)
         {
             kek.Entities.Teams teams = new kek.Entities.Teams() { Id = team.Id };
@@ -88,8 +91,8 @@
                 @team.TeamName
             </span>
         }
-        
-        
+
+
     </div>
 
     <h2>Портфолио</h2>
